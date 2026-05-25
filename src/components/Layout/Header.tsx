@@ -11,7 +11,7 @@ function Header() {
       >
         <div className="h-20 sm:h-24 sm:mx-20 sm:px-12 p-4 flex items-center justify-center">
           <Image
-            src="/Logo/falconLogo.png"
+            src="/Logo/falconlogo.png"
             alt="Falcon AI"
             className="object-cover"
             width={140}
