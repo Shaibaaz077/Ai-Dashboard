@@ -1,12 +1,21 @@
 "use client";
 
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@clerk/nextjs";
 
-function Header() {
+export default function Header() {
+  const { isSignedIn } = useAuth();
   const router = useRouter();
+
+  // ✅ Redirect AFTER render, not during
+  useEffect(() => {
+    if (isSignedIn) {
+      router.push("/dashboard");
+    }
+  }, [isSignedIn, router]);
 
   const handleSignIn = useCallback(() => {
     router.push("/sign-in");
@@ -16,39 +25,38 @@ function Header() {
     router.push("/sign-up");
   }, [router]);
 
+  // Show nothing while redirecting
+  if (isSignedIn) return null;
+
   return (
-    <>
-      <header
-        className="h-20 sm:h-24  flex items-center justify-between
-         sticky top-0 z-50 backdrop:backdrop-blur-2xl bg-white shadow-md"
-      >
-        <div className="h-20 sm:h-24 sm:mx-20 sm:px-12 p-4 flex items-center justify-center">
-          <Image
-            src="/Logo/falconlogo.png"
-            alt="Falcon AI"
-            className="object-cover"
-            width={140}
-            height={120}
-          />
-        </div>
-        <div className="flex items-center space-x-4 sm:mx-20 sm:px-12 p-4">
-          <Button
-            variant="outline"
-            className="md:text-md sm:h-10 md:p-4"
-            onClick={handleSignIn}
-          >
-            Sign In
-          </Button>
-          <Button
-            className="sm:text-md sm:h-10 md:p-4 hover:bg-black/80"
-            onClick={handleSignUp}
-          >
-            Sign Up
-          </Button>
-        </div>
-      </header>
-    </>
+    <header className="h-20 sm:h-24 flex items-center justify-between sticky top-0 z-50 bg-white shadow-md">
+      {/* Logo */}
+      <div className="h-20 sm:h-24 sm:mx-20 sm:px-12 p-4 flex items-center justify-center">
+        <Image
+          src="/Logo/falconlogo.png"
+          alt="Falcon AI"
+          className="object-cover"
+          width={140}
+          height={120}
+        />
+      </div>
+
+      {/* Buttons */}
+      <div className="flex items-center space-x-4 sm:mx-20 sm:px-12 p-4">
+        <Button
+          variant="outline"
+          className="md:text-md sm:h-10 md:p-4"
+          onClick={handleSignIn}
+        >
+          Sign In
+        </Button>
+        <Button
+          className="sm:text-md sm:h-10 md:p-4 hover:bg-black/80"
+          onClick={handleSignUp}
+        >
+          Sign Up
+        </Button>
+      </div>
+    </header>
   );
 }
-
-export default Header;
