@@ -1,8 +1,21 @@
-import React from "react";
+"use client";
+
+import React, { useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 function Header() {
+  const router = useRouter();
+
+  const handleSignIn = useCallback(() => {
+    router.push("/sign-in");
+  }, [router]);
+
+  const handleSignUp = useCallback(() => {
+    router.push("/sign-up");
+  }, [router]);
+
   return (
     <>
       <header
@@ -19,10 +32,17 @@ function Header() {
           />
         </div>
         <div className="flex items-center space-x-4 sm:mx-20 sm:px-12 p-4">
-          <Button variant="outline" className="md:text-md sm:h-10 md:p-4">
+          <Button
+            variant="outline"
+            className="md:text-md sm:h-10 md:p-4"
+            onClick={handleSignIn}
+          >
             Sign In
           </Button>
-          <Button className="sm:text-md sm:h-10 md:p-4 hover:bg-black/80">
+          <Button
+            className="sm:text-md sm:h-10 md:p-4 hover:bg-black/80"
+            onClick={handleSignUp}
+          >
             Sign Up
           </Button>
         </div>

@@ -7,7 +7,7 @@ function HowItWorks() {
       <hr className="border-stone-400/60" />
       <section className="h-full bg-stone-100 pb-20">
         <div className="flex items-center justify-center flex-col gap-2 mt-12 sm:mb-10 p-6">
-          <h2 className="text-lg sm:text-3xl font-semibold text-primary">
+          <h2 className="text-xl sm:text-3xl font-semibold text-primary">
             How It Works
           </h2>
           <p className="text-chart-2 text-center text-xs sm:text-sm">
@@ -57,7 +57,7 @@ function HowItWorks() {
       </section>
       <hr className="border-stone-400/60" />
       <section className="h-full bg-background py-20 flex flex-col items-center justify-center gap-4">
-        <h1 className="text-primary text-lg font-semibold sm:text-3xl">
+        <h1 className="text-primary text-xl font-semibold sm:text-3xl">
           Ready to generate your first content ?
         </h1>
         <p className="text-chart-2 text-center text-xs sm:text-sm">

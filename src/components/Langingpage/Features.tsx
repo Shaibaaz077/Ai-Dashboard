@@ -6,7 +6,7 @@ function Features() {
   return (
     <section className="h-full flex items-start justify-center">
       <div className="flex items-center justify-center flex-col gap-2 mt-8 sm:mb-8 p-6">
-        <h2 className="text-lg sm:text-3xl font-semibold text-primary">
+        <h2 className="text-xl sm:text-3xl font-semibold text-primary">
           What you can generate
         </h2>
         <p className="text-chart-2 text-center text-xs sm:text-sm">
