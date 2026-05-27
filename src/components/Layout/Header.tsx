@@ -10,10 +10,9 @@ export default function Header() {
   const { isSignedIn } = useAuth();
   const router = useRouter();
 
-  // ✅ Redirect AFTER render, not during
   useEffect(() => {
     if (isSignedIn) {
-      router.push("/dashboard");
+      router.push("/Dashboard");
     }
   }, [isSignedIn, router]);
 
