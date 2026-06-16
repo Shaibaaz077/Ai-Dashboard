@@ -1,8 +1,8 @@
-import Features from "@/components/Langingpage/Features";
-import Hero from "@/components/Langingpage/Hero";
-import HowItWorks from "@/components/Langingpage/HowItWorks";
-import Header from "@/components/Layout/Header";
-import Footer from "@/components/Langingpage/Footer";
+import Features from "@/components/Landingpage/Features";
+import Hero from "@/components/Landingpage/Hero";
+import HowItWorks from "@/components/Landingpage/HowItWorks";
+import Header from "@/components/Landingpage/Header";
+import Footer from "@/components/Landingpage/Footer";
 
 export default function Home() {
   return (
