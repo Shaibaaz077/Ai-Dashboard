@@ -67,7 +67,7 @@ function Sidebar({ onClose }: SidebarProps) {
           </span>
         )}
         <div
-          className={`flex items-center justify-center p-1 hover:bg-gray-200 rounded-lg cursor-pointer mt-2 ${
+          className={`hidden md:block :flex items-center justify-center p-1 hover:bg-gray-200 rounded-lg cursor-pointer mt-2 ${
             collapsed ? "mx-auto" : "ml-auto"
           }`}
           onClick={() => setCollapsed((prev) => !prev)}
