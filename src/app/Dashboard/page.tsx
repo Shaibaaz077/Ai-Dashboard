@@ -1,13 +1,6 @@
 // src/app/dashboard/page.tsx
-import { currentUser } from "@clerk/nextjs/server";
-import { SignOutButton } from "@clerk/nextjs";
+import { redirect } from "next/navigation";
 
-export default async function Dashboard() {
-  const user = await currentUser();
-
-  return (
-    <>
-      <section>page</section>
-    </>
-  );
+export default function Dashboard() {
+  redirect("/Dashboard/Home");
 }

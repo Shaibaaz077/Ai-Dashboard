@@ -4,9 +4,13 @@ import React, { useState, useCallback, useEffect, useRef } from "react";
 import { useUser, SignOutButton } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { Bell, ChevronDown, Settings, LogOut, User } from "lucide-react";
+import { Bell, TextAlignStart, Settings, LogOut, User } from "lucide-react";
 
-export default function DashboardHeader() {
+export default function DashboardHeader({
+  onToggleSidebar,
+}: {
+  onToggleSidebar: () => void;
+}) {
   const { user } = useUser();
   const router = useRouter();
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -44,9 +48,15 @@ export default function DashboardHeader() {
   }, [router]);
 
   return (
-    <header className="h-16 flex items-center justify-between px-6 bg-white border-b border-gray-100 sticky top-0 z-50">
+    <header className="h-16 flex items-center justify-between px-6 bg-white border-b border-border/40 sticky top-0 z-50">
       {/* Page Title */}
-      <h1 className="text-lg font-semibold text-gray-800">Dashboard</h1>
+      <h1 className="flex items-center gap-4 text-lg font-semibold text-gray-800 cursor-default">
+        <TextAlignStart
+          className="cursor-pointer md:hidden"
+          onClick={onToggleSidebar}
+        />
+        Dashboard
+      </h1>
 
       {/* Right Side */}
       <div className="flex items-center gap-3">
@@ -65,11 +75,11 @@ export default function DashboardHeader() {
 
           {/* Notification Dropdown */}
           {notifOpen && (
-            <div className="absolute right-0 mt-2 w-80 bg-white rounded-xl shadow-lg border border-gray-100 z-50">
-              <div className="p-4 border-b border-gray-100">
+            <div className="absolute right-0 mt-2 w-80 bg-white rounded-xl shadow-lg border border-border/40 z-50">
+              <div className="p-4 border-b border-border/40">
                 <h3 className="font-semibold text-gray-800">Notifications</h3>
               </div>
-              <div className="divide-y divide-gray-50">
+              <div className="divide-y divide-border/40">
                 {[
                   {
                     title: "AI request completed",
@@ -136,27 +146,13 @@ export default function DashboardHeader() {
                 {user?.lastName?.charAt(0)}
               </div>
             )}
-
-            {/* Name — hidden on mobile */}
-            <div className="hidden md:block text-left">
-              <p className="text-sm font-semibold text-gray-800 leading-none">
-                {user?.fullName}
-              </p>
-              <p className="text-xs text-gray-400 mt-0.5">
-                {user?.emailAddresses[0]?.emailAddress}
-              </p>
-            </div>
-
-            <ChevronDown
-              className={`w-4 h-4 text-gray-400 transition-transform duration-200 ${dropdownOpen ? "rotate-180" : ""}`}
-            />
           </button>
 
           {/* User Dropdown */}
           {dropdownOpen && (
-            <div className="absolute right-0 mt-2 w-64 bg-white rounded-xl shadow-lg border border-gray-100 z-50">
+            <div className="absolute right-0 mt-2 w-64 bg-white rounded-xl shadow-lg border border-border/40 z-50">
               {/* User Info */}
-              <div className="p-4 border-b border-gray-100">
+              <div className="p-4 border-b border-border/40">
                 <div className="flex items-center gap-3">
                   {user?.imageUrl ? (
                     <Image
