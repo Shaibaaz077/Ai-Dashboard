@@ -55,7 +55,7 @@ const guides = [
   { title: "Customizing your settings", tag: "Settings" },
 ];
 
-export default function page() {
+export default function Page() {
   const [search, setSearch] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -133,7 +133,8 @@ export default function page() {
         <CardContent>
           {filteredFaqs.length === 0 ? (
             <p className="text-sm text-muted-foreground py-4 text-center">
-              No results found for "{search}"
+              {" "}
+              {"\n"} No results found for &quot;{search}&quot; {"\n"}{" "}
             </p>
           ) : (
             <Accordion type="single" collapsible className="w-full">

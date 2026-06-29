@@ -25,7 +25,7 @@ function Features() {
             <CardDescription>
               <p className="px-4">
                 Generate full articles and blog posts from a simple topic or
-                title.{" "}
+                title.
               </p>
             </CardDescription>
           </Card>
@@ -41,7 +41,7 @@ function Features() {
             <CardDescription>
               <p className="px-4">
                 Write professional emails, cold outreach, or newsletters in
-                seconds.{" "}
+                seconds.
               </p>
             </CardDescription>
           </Card>

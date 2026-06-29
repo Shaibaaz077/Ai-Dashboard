@@ -11,7 +11,7 @@ import {
   ResponsiveContainer,
   CartesianGrid,
 } from "recharts";
-import { PieChart, Pie, Cell, Legend, Tooltip as PieTooltip } from "recharts";
+import { PieChart, Pie, Cell, Tooltip as PieTooltip } from "recharts";
 
 // --- Data ---
 

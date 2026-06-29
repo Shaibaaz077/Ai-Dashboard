@@ -1,7 +1,7 @@
 import React from "react";
 
-function page() {
+function Page() {
   return <div>saved page</div>;
 }
 
-export default page;
+export default Page;
