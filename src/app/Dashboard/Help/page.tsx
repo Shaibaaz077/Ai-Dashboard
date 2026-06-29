@@ -193,7 +193,7 @@ export default function Page() {
                 Message sent!
               </p>
               <p className="text-sm text-muted-foreground">
-                We'll get back to you within 24 hours.
+                We{"'"}ll get back to you within 24 hours.
               </p>
             </div>
           ) : (

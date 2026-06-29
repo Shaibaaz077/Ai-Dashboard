@@ -47,7 +47,7 @@ function Features() {
           </Card>
           <Card className="h-full w-72 shadow-sm hover:shadow-lg transition cursor-pointer">
             <div className="h-10 w-10 bg-pink-200 flex justify-center items-center ml-4 mb-3 rounded-md">
-              <Image className="text-pink-600" />
+              <Image className="text-pink-600" aria-label="image icon" />
             </div>
             <CardHeader>
               <CardTitle>
