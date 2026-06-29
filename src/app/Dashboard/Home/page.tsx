@@ -1,7 +1,11 @@
-import React from "react";
+import ActivityChart from "./Components/ActivityChart";
+import StatCard from "./Components/StatCards";
 
-function page() {
-  return <div> home page</div>;
+export default function HomePage() {
+  return (
+    <section className="p-2 sm:p-6 sm:space-y-5">
+      <StatCard />
+      <ActivityChart />
+    </section>
+  );
 }
-
-export default page;

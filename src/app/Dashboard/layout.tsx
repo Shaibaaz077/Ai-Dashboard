@@ -29,7 +29,7 @@ export default function DashboardLayout({
         <DashboardHeader
           onToggleSidebar={() => setSidebarOpen((prev) => !prev)}
         />
-        <main className="flex-1 p-6">{children}</main>
+        <main className="flex-1 p-6 bg-muted">{children}</main>
       </div>
     </div>
   );
