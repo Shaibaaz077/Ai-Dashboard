@@ -62,7 +62,7 @@ const usageData = [
 
 export default function RecentActivity() {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 mt-6 gap-4 cursor-default">
+    <div className="h-full grid grid-cols-1 lg:grid-cols-2 gap-4 mt-6 cursor-default">
       {/* Recent activity */}
       <Card>
         <CardHeader className="pb-2">
@@ -106,7 +106,7 @@ export default function RecentActivity() {
       </Card>
 
       {/* Free plan usage */}
-      <Card>
+      <Card className="h-full grid grid-cols-1">
         <CardHeader className="pb-2">
           <CardTitle className="text-sm font-medium pt-4 pl-2">
             Free plan usage
