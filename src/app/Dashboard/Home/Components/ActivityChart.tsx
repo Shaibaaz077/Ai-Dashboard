@@ -41,6 +41,7 @@ const contentTypes = [
 
 // --- Custom Bar Tooltip ---
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const CustomBarTooltip = ({ active, payload, label }: any) => {
   if (active && payload && payload.length) {
     return (
@@ -66,6 +67,7 @@ const CustomBarTooltip = ({ active, payload, label }: any) => {
 
 // --- Custom Pie Tooltip ---
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const CustomPieTooltip = ({ active, payload }: any) => {
   if (active && payload && payload.length) {
     return (
