@@ -48,7 +48,7 @@ export default function DashboardHeader({
   }, [router]);
 
   return (
-    <header className="h-16 flex items-center justify-between px-6 bg-white border-b border-border/40 sticky top-0 z-50">
+    <header className="h-20 sm:h-24 flex items-center justify-between px-6 py-4 bg-white border-b border-border/40 sticky top-0 z-50">
       {/* Page Title */}
       <h1 className="flex items-center gap-4 text-lg font-semibold text-gray-800 cursor-default">
         <TextAlignStart

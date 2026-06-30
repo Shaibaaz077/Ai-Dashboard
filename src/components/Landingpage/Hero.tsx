@@ -1,7 +1,23 @@
-import React from "react";
+"use client";
+
+import React, { useCallback } from "react";
 import { ArrowUpRight } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 function Hero() {
+  const router = useRouter();
+
+  const handleStart = useCallback(() => {
+    router.push("/sign-in");
+  }, [router]);
+
+  const handleworks = () => {
+    const section = document.getElementById("how-it-works");
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <section className="relative min-h-[420px] bg-background flex items-center justify-center flex-col gap-5 py-20 px-6 sm:px-12 overflow-hidden">
       {/* Grid background */}
@@ -36,10 +52,16 @@ function Hero() {
       </p>
 
       <div className="relative flex gap-3 mt-2 flex-wrap justify-center">
-        <button className="text-sm font-medium px-5 py-2.5 rounded-lg bg-primary text-primary-foreground hover:opacity-90 transition-opacity">
+        <button
+          onClick={handleStart}
+          className="text-sm font-medium px-5 py-2.5 rounded-lg bg-primary text-primary-foreground hover:opacity-90 transition-opacity"
+        >
           Start generating free <ArrowUpRight className="inline size-4" />
         </button>
-        <button className="text-sm font-medium px-5 py-2.5 rounded-lg border text-muted-foreground hover:text-foreground hover:border-border transition-colors backdrop:blur-sm bg-background">
+        <button
+          onClick={handleworks}
+          className="text-sm font-medium px-5 py-2.5 rounded-lg border text-muted-foreground hover:text-foreground hover:border-border transition-colors backdrop:blur-sm bg-background"
+        >
           See how it works
         </button>
       </div>

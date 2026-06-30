@@ -1,11 +1,20 @@
-import React from "react";
+"use client";
+
+import React, { useCallback } from "react";
 import { ArrowUpRight } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 function HowItWorks() {
+  const router = useRouter();
+
+  const handleStart = useCallback(() => {
+    router.push("/sign-in");
+  }, [router]);
+
   return (
-    <>
-      <hr className="border-stone-400/60" />
-      <section className="h-full bg-stone-100 pb-20">
+    <section id="how-it-works" className="h-full bg-stone-100">
+      <hr className="border-stone-400/60 " />
+      <div className="h-full bg-stone-100 pb-20">
         <div className="flex items-center justify-center flex-col gap-2 mt-12 sm:mb-10 p-6">
           <h2 className="text-xl sm:text-3xl font-semibold text-primary">
             How It Works
@@ -54,20 +63,23 @@ function HowItWorks() {
             </div>
           </div>
         </div>
-      </section>
+      </div>
       <hr className="border-stone-400/60" />
-      <section className="h-full bg-background py-20 flex flex-col items-center justify-center gap-4">
+      <div className="h-full bg-background py-20 flex flex-col items-center justify-center gap-4">
         <h1 className="text-primary text-xl font-semibold sm:text-3xl">
           Ready to generate your first content ?
         </h1>
         <p className="text-chart-2 text-center text-xs sm:text-sm">
           Free forever. No sign up required to try it out.
         </p>
-        <button className="bg-background text-primary py-2 px-6 border rounded-md  hover:bg-primary-foreground transition-colors">
+        <button
+          onClick={handleStart}
+          className="bg-background text-primary py-2 px-6 border rounded-md  hover:bg-primary-foreground transition-colors"
+        >
           Start generating free <ArrowUpRight className="inline size-4" />
         </button>
-      </section>
-    </>
+      </div>
+    </section>
   );
 }
 

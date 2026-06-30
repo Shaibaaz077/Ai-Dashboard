@@ -13,100 +13,101 @@ function Features() {
           One tool for all your AI content needs completely free.
         </p>
         <div className="text-primary w-full h-full  grid grid-cols-1 gap-4 mt-6 ml-16 sm:grid-cols-3 sm:gap-6 sm:mt-10 ">
-          <Card className="h-full w-72 shadow-sm hover:shadow-lg transition cursor-pointer">
-            <div className="h-10 w-10 bg-blue-200 flex justify-center items-center ml-4 mb-3 rounded-md">
-              <LayoutList className="text-blue-600" />
-            </div>
+          <Card className="h-full w-72 shadow-sm hover:shadow-lg transition cursor-pointer p-4">
             <CardHeader>
+              <div className="h-10 w-10 bg-blue-200 flex justify-center items-center mt-2 mb-4 rounded-md">
+                <LayoutList className="text-blue-600" />
+              </div>
               <CardTitle>
                 <span className="sm:text-lg pb-2">Blog posts</span>
               </CardTitle>
+              <CardDescription>
+                <p className="py-2">
+                  Generate full articles and blog posts from a simple topic or
+                  title.
+                </p>
+              </CardDescription>
             </CardHeader>
-            <CardDescription>
-              <p className="px-4">
-                Generate full articles and blog posts from a simple topic or
-                title.
-              </p>
-            </CardDescription>
           </Card>
-          <Card className="h-full w-72 shadow-sm hover:shadow-lg transition cursor-pointer">
-            <div className="h-10 w-10 bg-green-200 flex justify-center items-center ml-4 mb-3 rounded-md">
-              <Mail className="text-green-600" />
-            </div>
+          <Card className="h-full w-72 shadow-sm hover:shadow-lg transition cursor-pointer p-4">
             <CardHeader>
+              <div className="h-10 w-10 bg-green-200 flex justify-center items-center mt-2 mb-4 rounded-md">
+                <Mail className="text-green-600" />
+              </div>
               <CardTitle>
                 <span className="sm:text-lg pb-2">Emails</span>
               </CardTitle>
+              <CardDescription>
+                <p className="py-2">
+                  Write professional emails, cold outreach, or newsletters in
+                  seconds.
+                </p>
+              </CardDescription>
             </CardHeader>
-            <CardDescription>
-              <p className="px-4">
-                Write professional emails, cold outreach, or newsletters in
-                seconds.
-              </p>
-            </CardDescription>
           </Card>
-          <Card className="h-full w-72 shadow-sm hover:shadow-lg transition cursor-pointer">
-            <div className="h-10 w-10 bg-pink-200 flex justify-center items-center ml-4 mb-3 rounded-md">
-              <Image className="text-pink-600" aria-label="image icon" />
-            </div>
+          <Card className="h-full w-72 shadow-sm hover:shadow-lg transition cursor-pointer p-4">
             <CardHeader>
+              <div className="h-10 w-10 bg-pink-200 flex justify-center items-center mt-2 mb-4 rounded-md">
+                <Image className="text-pink-600" aria-label="image icon" />
+              </div>
               <CardTitle>
                 <span className="sm:text-lg pb-2">Social captions</span>
               </CardTitle>
+              <CardDescription>
+                <p className="py-2">
+                  Create catchy Instagram, Twitter and LinkedIn captions
+                  instantly.
+                </p>
+              </CardDescription>
             </CardHeader>
-            <CardDescription>
-              <p className="px-4">
-                Create catchy Instagram, Twitter and LinkedIn captions
-                instantly.
-              </p>
-            </CardDescription>
           </Card>
-          <Card className="h-full w-72 shadow-sm hover:shadow-lg transition cursor-pointer">
-            <div className="h-10 w-10 bg-blue-200 flex justify-center items-center ml-4 mb-3 rounded-md">
-              <Code2 className="text-blue-600" />
-            </div>
+          <Card className="h-full w-72 shadow-sm hover:shadow-lg transition cursor-pointer p-4">
             <CardHeader>
+              <div className="h-10 w-10 bg-blue-200 flex justify-center items-center mt-2 mb-4 rounded-md">
+                <Code2 className="text-blue-600" />
+              </div>
               <CardTitle>
                 <span className="sm:text-lg pb-2">Code snippets</span>
               </CardTitle>
+              <CardDescription>
+                <p className="py-2">
+                  Generate clean, working code in any language from a
+                  description.
+                </p>
+              </CardDescription>
             </CardHeader>
-            <CardDescription>
-              <p className="px-4">
-                Generate clean, working code in any language from a description.
-              </p>
-            </CardDescription>
           </Card>
-          <Card className="h-full w-72 shadow-sm hover:shadow-lg transition cursor-pointer">
-            <div className="h-10 w-10 bg-green-200 flex justify-center items-center ml-4 mb-3 rounded-md">
-              <User className="text-green-600" />
-            </div>
+          <Card className="h-full w-72 shadow-sm hover:shadow-lg transition cursor-pointer p-4">
             <CardHeader>
+              <div className="h-10 w-10 bg-green-200 flex justify-center items-center mt-2 mb-4 rounded-md">
+                <User className="text-green-600" />
+              </div>
               <CardTitle>
                 <span className="sm:text-lg pb-2">Bio & about me</span>
               </CardTitle>
+              <CardDescription>
+                <p className="py-2">
+                  Write a professional bio for your website, LinkedIn or
+                  portfolio.
+                </p>
+              </CardDescription>
             </CardHeader>
-            <CardDescription>
-              <p className="px-4">
-                Write a professional bio for your website, LinkedIn or
-                portfolio.
-              </p>
-            </CardDescription>
           </Card>
-          <Card className="h-full w-72 shadow-sm hover:shadow-lg transition cursor-pointer">
-            <div className="h-10 w-10 bg-pink-200 flex justify-center items-center ml-4 mb-3 rounded-md">
-              <Star className="text-pink-600" />
-            </div>
+          <Card className="h-full w-72 shadow-sm hover:shadow-lg transition cursor-pointer p-4">
             <CardHeader>
+              <div className="h-10 w-10 bg-pink-200 flex justify-center items-center mt-2 mb-4 rounded-md">
+                <Star className="text-pink-600" />
+              </div>
               <CardTitle>
                 <span className="sm:text-lg pb-2">Product descriptions</span>
               </CardTitle>
+              <CardDescription>
+                <p className="py-2">
+                  Create sales-driven product descriptions for e-commerce
+                  stores.
+                </p>
+              </CardDescription>
             </CardHeader>
-            <CardDescription>
-              <p className="px-4">
-                Write compelling product copy that converts for any e-commerce
-                store.
-              </p>
-            </CardDescription>
           </Card>
         </div>
       </div>

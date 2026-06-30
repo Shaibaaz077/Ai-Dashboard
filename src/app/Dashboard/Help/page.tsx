@@ -95,10 +95,10 @@ export default function Page() {
       </div>
 
       {/* Quick links */}
-      <div className="grid grid-cols-3 gap-4 mb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
         <Card className="cursor-pointer hover:bg-muted/50 transition-colors">
           <CardContent className="flex flex-col items-center gap-2 p-4 text-center">
-            <FileText className="w-6 h-6 text-blue-500" />
+            <FileText className="w-6 h-6 text-primary" />
             <span className="text-sm font-medium">Docs</span>
             <span className="text-xs text-muted-foreground">
               Read the guides
@@ -107,14 +107,14 @@ export default function Page() {
         </Card>
         <Card className="cursor-pointer hover:bg-muted/50 transition-colors">
           <CardContent className="flex flex-col items-center gap-2 p-4 text-center">
-            <MessageCircle className="w-6 h-6 text-green-500" />
+            <MessageCircle className="w-6 h-6 text-primary" />
             <span className="text-sm font-medium">Live chat</span>
             <span className="text-xs text-muted-foreground">Chat with us</span>
           </CardContent>
         </Card>
         <Card className="cursor-pointer hover:bg-muted/50 transition-colors">
           <CardContent className="flex flex-col items-center gap-2 p-4 text-center">
-            <Mail className="w-6 h-6 text-orange-500" />
+            <Mail className="w-6 h-6 text-primary" />
             <span className="text-sm font-medium">Email us</span>
             <span className="text-xs text-muted-foreground">
               support@falconai.dev
@@ -124,7 +124,7 @@ export default function Page() {
       </div>
 
       {/* FAQ */}
-      <Card className="mb-8">
+      <Card className="p-4 mb-8">
         <CardHeader className="pb-2">
           <CardTitle className="text-sm font-medium">
             Frequently asked questions
@@ -154,7 +154,7 @@ export default function Page() {
       </Card>
 
       {/* Guides */}
-      <Card className="mb-8">
+      <Card className="p-4 mb-8">
         <CardHeader className="pb-2">
           <CardTitle className="text-sm font-medium">Popular guides</CardTitle>
         </CardHeader>
@@ -180,7 +180,7 @@ export default function Page() {
       </Card>
 
       {/* Contact form */}
-      <Card>
+      <Card className="p-4">
         <CardHeader className="pb-2">
           <CardTitle className="text-sm font-medium">
             Send us a message

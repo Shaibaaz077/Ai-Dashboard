@@ -39,6 +39,58 @@ const contentTypes = [
   { name: "Other", value: 14, color: "#7F77DD" },
 ];
 
+// --- Custom Bar Tooltip ---
+
+const CustomBarTooltip = ({ active, payload, label }: any) => {
+  if (active && payload && payload.length) {
+    return (
+      <div
+        style={{
+          backgroundColor: "white",
+          border: "1px solid #e2e8f0",
+          borderRadius: "8px",
+          fontSize: "12px",
+          fontWeight: "600",
+          color: "#0f172a",
+          padding: "6px 12px",
+          boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+        }}
+      >
+        <p style={{ marginBottom: "2px", color: "#64748b" }}>{label}</p>
+        <p>{payload[0].value} Generations</p>
+      </div>
+    );
+  }
+  return null;
+};
+
+// --- Custom Pie Tooltip ---
+
+const CustomPieTooltip = ({ active, payload }: any) => {
+  if (active && payload && payload.length) {
+    return (
+      <div
+        style={{
+          backgroundColor: "white",
+          border: "1px solid #e2e8f0",
+          borderRadius: "8px",
+          fontSize: "12px",
+          fontWeight: "600",
+          color: "#0f172a",
+          padding: "6px 12px",
+          boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+        }}
+      >
+        <p style={{ color: "#64748b", marginBottom: "2px" }}>
+          {payload[0].name}
+        </p>
+        <p>{payload[0].value}%</p>
+      </div>
+    );
+  }
+  return null;
+};
+
 // --- Custom legend for donut chart ---
 
 const CustomLegend = () => (
@@ -69,7 +121,7 @@ export default function ActivityChart() {
   const chartData = range === "7d" ? weeklyData : monthlyData;
 
   return (
-    <div className="h-full grid grid-cols-1 lg:grid-cols-3 gap-4 mt-6">
+    <div className="h-full grid grid-cols-1 lg:grid-cols-3 gap-4 mt-6 cursor-default">
       {/* Bar chart */}
       <Card className="lg:col-span-2">
         <CardHeader className="py-4">
@@ -110,7 +162,11 @@ export default function ActivityChart() {
         </CardHeader>
 
         <CardContent>
-          <ResponsiveContainer width="100%" height={200}>
+          <ResponsiveContainer
+            width="100%"
+            height={200}
+            style={{ marginTop: "1rem" }}
+          >
             <BarChart
               data={chartData}
               barSize={range === "7d" ? 32 : 48}
@@ -134,14 +190,9 @@ export default function ActivityChart() {
                 allowDecimals={false}
               />
               <Tooltip
-                cursor={{ fill: "hsl(var(--muted))" }}
-                contentStyle={{
-                  background: "hsl(var(--background))",
-                  border: "1px solid hsl(var(--border))",
-                  borderRadius: "8px",
-                  fontSize: "12px",
-                }}
-                formatter={(value) => [value, "Generations"]}
+                cursor={false}
+                content={<CustomBarTooltip />}
+                wrapperStyle={{ zIndex: 50 }}
               />
               <Bar
                 dataKey="count"
@@ -180,13 +231,8 @@ export default function ActivityChart() {
                 ))}
               </Pie>
               <PieTooltip
-                contentStyle={{
-                  background: "hsl(var(--background))",
-                  border: "1px solid hsl(var(--border))",
-                  borderRadius: "8px",
-                  fontSize: "12px",
-                }}
-                formatter={(value) => [`${value}%`, ""]}
+                content={<CustomPieTooltip />}
+                wrapperStyle={{ zIndex: 50 }}
               />
             </PieChart>
           </ResponsiveContainer>

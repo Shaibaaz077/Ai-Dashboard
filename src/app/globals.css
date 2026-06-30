@@ -128,3 +128,15 @@
     @apply font-sans;
   }
 }
+
+.recharts-wrapper:focus,
+.recharts-surface:focus,
+.recharts-bar-rectangle:focus,
+.recharts-rectangle:focus {
+  outline: none !important;
+}
+
+.recharts-wrapper *:focus,
+.recharts-wrapper *:focus-visible {
+  outline: none !important;
+}
