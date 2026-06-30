@@ -112,7 +112,7 @@ export default function RecentActivity() {
             Free plan usage
           </CardTitle>
         </CardHeader>
-        <CardContent className="flex flex-col gap-5 mx-2">
+        <CardContent className="flex flex-col gap-5 mx-2 pb-4">
           {usageData.map((item) => {
             const percentage = Math.round((item.used / item.max) * 100);
             return (
