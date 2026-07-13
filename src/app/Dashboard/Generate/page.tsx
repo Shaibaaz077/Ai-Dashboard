@@ -7,8 +7,8 @@ function Page() {
   return (
     <section>
       <GenerateOutput />
-      <RecentPrompt />
       <PromptInput />
+      <RecentPrompt />
     </section>
   );
 }

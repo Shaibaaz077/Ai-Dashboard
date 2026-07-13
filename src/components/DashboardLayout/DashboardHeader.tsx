@@ -67,6 +67,7 @@ export default function DashboardHeader({
               setNotifOpen((prev) => !prev);
               setDropdownOpen(false);
             }}
+            suppressHydrationWarning
             className="relative p-2 rounded-full hover:bg-gray-100 transition-colors"
           >
             <Bell className="w-5 h-5 text-gray-600" />
@@ -114,7 +115,10 @@ export default function DashboardHeader({
                 ))}
               </div>
               <div className="p-3 border-t border-gray-100 text-center">
-                <button className="text-sm text-purple-600 hover:underline">
+                <button
+                  suppressHydrationWarning
+                  className="text-sm text-purple-600 hover:underline"
+                >
                   View all notifications
                 </button>
               </div>
@@ -129,6 +133,7 @@ export default function DashboardHeader({
               setDropdownOpen((prev) => !prev);
               setNotifOpen(false);
             }}
+            suppressHydrationWarning
             className="flex items-center gap-2 p-2 rounded-xl hover:bg-gray-100 transition-colors"
           >
             {/* Avatar */}
@@ -182,6 +187,7 @@ export default function DashboardHeader({
               <div className="p-2">
                 <button
                   onClick={handleProfile}
+                  suppressHydrationWarning
                   className="flex items-center gap-3 w-full px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-lg transition-colors"
                 >
                   <User className="w-4 h-4 text-gray-400" />
@@ -190,6 +196,7 @@ export default function DashboardHeader({
 
                 <button
                   onClick={handleSettings}
+                  suppressHydrationWarning
                   className="flex items-center gap-3 w-full px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-lg transition-colors"
                 >
                   <Settings className="w-4 h-4 text-gray-400" />
@@ -200,7 +207,10 @@ export default function DashboardHeader({
               {/* Sign Out */}
               <div className="p-2 border-t border-gray-100">
                 <SignOutButton redirectUrl="/">
-                  <button className="flex items-center gap-3 w-full px-3 py-2 text-sm text-red-500 hover:bg-red-50 rounded-lg transition-colors">
+                  <button
+                    suppressHydrationWarning
+                    className="flex items-center gap-3 w-full px-3 py-2 text-sm text-red-500 hover:bg-red-50 rounded-lg transition-colors"
+                  >
                     <LogOut className="w-4 h-4" />
                     Sign Out
                   </button>
