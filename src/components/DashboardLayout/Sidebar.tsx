@@ -53,7 +53,7 @@ function Sidebar({ onClose }: SidebarProps) {
       <div className="p-4 h-20 flex items-center justify-start gap-1 border-b border-sidebar-border cursor-default">
         {!collapsed && (
           <Image
-            src="/Logo/tab icon.png"
+            src="/Logo/siderbarIcon.png"
             alt="Falcon AI"
             width={40}
             height={30}
