@@ -17,8 +17,8 @@ function Page() {
   if (!hasMessages) {
     // Centered state — matches "Let's noodle" reference
     return (
-      <section className="h-full flex flex-col items-center justify-center px-4">
-        <h1 className="text-3xl md:text-4xl font-medium text-primary mb-6">
+      <section className="h-full flex flex-col items-center justify-center">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-medium text-primary mb-6">
           Good Morning, Shaibaz
         </h1>
         <PromptInput
@@ -35,7 +35,7 @@ function Page() {
     <section className="flex flex-col">
       <GenerateOutput messages={messages} isLoading={isLoading} />
 
-      <div className="fixed bottom-0 left-0 right-0 md:left-64 flex flex-col items-center justify-center pt-2 pb-4 shadow-xl">
+      <div className="fixed bottom-0 left-0 right-0 md:left-64 flex flex-col items-center justify-center pt-2 pb-4 mx-3 shadow-xl">
         <PromptInput
           setMessages={setMessages}
           setIsLoading={setIsLoading}

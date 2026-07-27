@@ -105,7 +105,7 @@ export default function PromptInput({
       <div ref={ref} className="relative w-full max-w-2xl">
         {/* Dropdown menu */}
         {open && (
-          <div className="absolute bottom-full left-0 mb-2 w-[calc(100vw-1.5rem)] xs:w-72 sm:w-72 max-w-72 bg-white border border-[#EAE7E0] rounded-2xl shadow-[0_8px_24px_rgba(20,20,20,0.08)] py-2 overflow-hidden max-h-[60vh] overflow-y-auto">
+          <div className="absolute bottom-full left-0 mb-2 w-[calc(100vw-1.5rem)] xs:w-72 sm:w-72 max-w-72 bg-background border border-[#EAE7E0] rounded-2xl shadow-[0_8px_24px_rgba(20,20,20,0.08)] py-2 overflow-hidden max-h-[60vh] overflow-y-auto">
             {menuItems.map((item, i) =>
               item.divider ? (
                 <div key={i} className="h-px bg-[#F1EFEA] my-1.5 mx-2" />
@@ -150,7 +150,7 @@ export default function PromptInput({
         )}
 
         {/* Input card — two rows */}
-        <div className="flex flex-col gap-1 bg-white border border-border/50 rounded-2xl p-3 sm:p-4 shadow-[0_1px_2px_rgba(20,20,20,0.04)]">
+        <div className="w-full flex flex-col gap-1 bg-background border border-border/50 rounded-2xl p-3 sm:p-4 shadow-[0_1px_2px_rgba(20,20,20,0.04)]">
           {/* Row 1: textarea */}
           <textarea
             value={prompt}
@@ -203,7 +203,7 @@ export default function PromptInput({
 
       {/* Suggestion cards — hidden once conversation starts */}
       {!hasMessages && (
-        <ul className="w-full max-w-2xl flex flex-row items-center justify-center gap-1 sm:gap-3 text-primary cursor-pointer flex-wrap">
+        <ul className="w-full max-w-2xl flex flex-row items-center justify-center gap-1 sm:gap-3 text-primary cursor-pointer sm:flex-wrap">
           <li className="text-sm flex items-center justify-center border border-border rounded-lg px-3 py-2 gap-1 hover:bg-chart-1/30 transition-colors">
             <SquarePen size={18} className="text-muted-foreground" />
             Write
