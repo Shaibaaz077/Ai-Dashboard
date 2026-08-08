@@ -77,17 +77,43 @@ export default function PromptInput({
     setPrompt("");
     setIsLoading(true);
 
-    const res = await fetch("/api/generate", {
-      method: "POST",
-      body: JSON.stringify({ prompt }),
-    });
-    const data = await res.json();
+    try {
+      const res = await fetch("/api/generate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ prompt }),
+      });
 
-    setMessages((prev) => [
-      ...prev,
-      { role: "assistant", content: data.result },
-    ]);
-    setIsLoading(false);
+      if (!res.ok) {
+        const errorText = await res.text();
+        console.error("API error:", errorText);
+        setMessages((prev) => [
+          ...prev,
+          {
+            role: "assistant",
+            content: "Something went wrong. Please try again.",
+          },
+        ]);
+        return;
+      }
+
+      const data = await res.json();
+
+      setMessages((prev) => [
+        ...prev,
+        { role: "assistant", content: data.result || "No response received." },
+      ]);
+    } catch (error) {
+      console.error("Fetch error:", error);
+      setMessages((prev) => [
+        ...prev,
+        { role: "assistant", content: "Network error. Please try again." },
+      ]);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -99,13 +125,13 @@ export default function PromptInput({
 
   return (
     <div
-      className="w-full flex flex-col items-center justify-center gap-3 sm:gap-4 p-1 sm:p-4 md:p-6 my-2 sm:my-0"
+      className="w-full flex flex-col items-center justify-center gap-3"
       style={{ fontFamily: "'Inter', sans-serif" }}
     >
       <div ref={ref} className="relative w-full max-w-2xl">
         {/* Dropdown menu */}
         {open && (
-          <div className="absolute bottom-full left-0 mb-2 w-[calc(100vw-1.5rem)] xs:w-72 sm:w-72 max-w-72 bg-background border border-[#EAE7E0] rounded-2xl shadow-[0_8px_24px_rgba(20,20,20,0.08)] py-2 overflow-hidden max-h-[60vh] overflow-y-auto">
+          <div className="absolute bottom-full left-0 mb-2 w-64 xs:w-72 sm:w-72 max-w-[calc(100vw-2rem)] bg-background border border-[#EAE7E0] rounded-2xl shadow-[0_8px_24px_rgba(20,20,20,0.08)] py-2 overflow-hidden max-h-[50vh] sm:max-h-[60vh] overflow-y-auto z-20">
             {menuItems.map((item, i) =>
               item.divider ? (
                 <div key={i} className="h-px bg-[#F1EFEA] my-1.5 mx-2" />
@@ -150,7 +176,7 @@ export default function PromptInput({
         )}
 
         {/* Input card — two rows */}
-        <div className="w-full flex flex-col gap-1 bg-background border border-border/50 rounded-2xl p-3 sm:p-4 shadow-[0_1px_2px_rgba(20,20,20,0.04)]">
+        <div className="w-full flex flex-col gap-1 bg-background border border-border/50 rounded-2xl p-2.5 sm:p-3 md:p-4 shadow-[0_1px_2px_rgba(20,20,20,0.04)]">
           {/* Row 1: textarea */}
           <textarea
             value={prompt}
@@ -161,11 +187,11 @@ export default function PromptInput({
             placeholder={
               hasMessages ? "Write a message..." : "How can I help you today?"
             }
-            className="w-full resize-none bg-transparent outline-none text-[15px] sm:text-[16px] placeholder:text-chart-2/80 max-h-40"
+            className="w-full resize-none bg-transparent outline-none text-[14px] xs:text-[15px] sm:text-[16px] placeholder:text-chart-2/80 max-h-32 sm:max-h-40"
           />
 
           {/* Row 2: controls */}
-          <div className="flex items-center justify-between pt-1">
+          <div className="flex items-center justify-between pt-1 gap-2">
             <button
               onClick={() => setOpen((v) => !v)}
               suppressHydrationWarning
@@ -174,10 +200,16 @@ export default function PromptInput({
               <Plus size={18} strokeWidth={2.2} />
             </button>
 
-            <div className="flex items-center gap-2 sm:gap-3">
-              <button className="flex items-center gap-1 text-sm text-foreground hover:bg-accent rounded-lg px-2 py-1.5 transition-colors">
-                Sonnet 5<span className="text-muted-foreground">Medium</span>
-                <ChevronDown size={14} className="text-muted-foreground" />
+            <div className="flex items-center gap-1 xs:gap-2 sm:gap-3 min-w-0">
+              <button className="flex items-center gap-1 text-xs sm:text-sm text-foreground hover:bg-accent rounded-lg px-1.5 sm:px-2 py-1.5 transition-colors min-w-0">
+                <span className="truncate">Sonnet 5</span>
+                <span className="hidden xs:inline text-muted-foreground shrink-0">
+                  Medium
+                </span>
+                <ChevronDown
+                  size={14}
+                  className="text-muted-foreground shrink-0"
+                />
               </button>
 
               <button className="w-8 h-8 sm:w-9 sm:h-9 shrink-0 rounded-xl flex items-center justify-center transition-colors text-muted-foreground hover:bg-accent">
@@ -203,21 +235,33 @@ export default function PromptInput({
 
       {/* Suggestion cards — hidden once conversation starts */}
       {!hasMessages && (
-        <ul className="w-full max-w-2xl flex flex-row items-center justify-center gap-1 sm:gap-3 text-primary cursor-pointer sm:flex-wrap">
-          <li className="text-sm flex items-center justify-center border border-border rounded-lg px-3 py-2 gap-1 hover:bg-chart-1/30 transition-colors">
-            <SquarePen size={18} className="text-muted-foreground" />
+        <ul className="w-full max-w-2xl flex flex-wrap items-center justify-center gap-2 sm:gap-3 text-primary cursor-pointer px-1">
+          <li className="text-xs sm:text-sm flex items-center justify-center border border-border rounded-lg px-2.5 sm:px-3 py-1.5 sm:py-2 gap-1 hover:bg-chart-1/30 transition-colors">
+            <SquarePen
+              size={16}
+              className="text-muted-foreground shrink-0 sm:w-[18px] sm:h-[18px]"
+            />
             Write
           </li>
-          <li className="text-sm flex items-center justify-center border border-border rounded-lg px-3 py-2 gap-1 hover:bg-chart-1/30 transition-colors">
-            <GraduationCap size={18} className="text-muted-foreground" />
+          <li className="text-xs sm:text-sm flex items-center justify-center border border-border rounded-lg px-2.5 sm:px-3 py-1.5 sm:py-2 gap-1 hover:bg-chart-1/30 transition-colors">
+            <GraduationCap
+              size={16}
+              className="text-muted-foreground shrink-0 sm:w-[18px] sm:h-[18px]"
+            />
             Learn
           </li>
-          <li className="text-sm flex items-center justify-center border border-border rounded-lg px-3 py-2 gap-1 hover:bg-chart-1/30 transition-colors">
-            <CodeXml size={18} className="text-muted-foreground" />
+          <li className="text-xs sm:text-sm flex items-center justify-center border border-border rounded-lg px-2.5 sm:px-3 py-1.5 sm:py-2 gap-1 hover:bg-chart-1/30 transition-colors">
+            <CodeXml
+              size={16}
+              className="text-muted-foreground shrink-0 sm:w-[18px] sm:h-[18px]"
+            />
             Code
           </li>
-          <li className="text-sm flex items-center justify-center border border-border rounded-lg px-3 py-2 gap-1 hover:bg-chart-1/30 transition-colors">
-            <LayoutDashboard size={18} className="text-muted-foreground" />
+          <li className="text-xs sm:text-sm flex items-center justify-center border border-border rounded-lg px-2.5 sm:px-3 py-1.5 sm:py-2 gap-1 hover:bg-chart-1/30 transition-colors">
+            <LayoutDashboard
+              size={16}
+              className="text-muted-foreground shrink-0 sm:w-[18px] sm:h-[18px]"
+            />
             Design
           </li>
         </ul>

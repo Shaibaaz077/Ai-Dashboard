@@ -15,15 +15,15 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const menuLinks = [
-  { href: "/Dashboard/Home", label: "Home", icon: Home },
-  { href: "/Dashboard/Generate", label: "Generate", icon: Sparkles },
-  { href: "/Dashboard/History", label: "History", icon: History },
-  { href: "/Dashboard/Saved", label: "Saved", icon: Bookmark },
+  { href: "/dashboard/home", label: "Home", icon: Home },
+  { href: "/dashboard/generate", label: "Generate", icon: Sparkles },
+  { href: "/dashboard/history", label: "History", icon: History },
+  { href: "/dashboard/saved", label: "Saved", icon: Bookmark },
 ];
 
 const accountLinks = [
-  { href: "/Dashboard/Settings", label: "Settings", icon: Settings },
-  { href: "/Dashboard/Help", label: "Help", icon: HelpCircle },
+  { href: "/dashboard/settings", label: "Settings", icon: Settings },
+  { href: "/dashboard/help", label: "Help", icon: HelpCircle },
 ];
 
 type SidebarProps = {

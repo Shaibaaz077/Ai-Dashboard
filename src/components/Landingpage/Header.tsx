@@ -12,7 +12,7 @@ export default function LandingHeader() {
 
   useEffect(() => {
     if (isSignedIn) {
-      router.push("/Dashboard");
+      router.push("/dashboard");
     }
   }, [isSignedIn, router]);
 

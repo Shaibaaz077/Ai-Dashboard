@@ -4,7 +4,7 @@ import HowItWorks from "@/components/Landingpage/HowItWorks";
 import Header from "@/components/Landingpage/Header";
 import Footer from "@/components/Landingpage/Footer";
 
-export default function Home() {
+export default function page() {
   return (
     <>
       <Header />

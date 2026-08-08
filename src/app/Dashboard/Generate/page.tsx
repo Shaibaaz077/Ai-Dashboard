@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import PromptInput from "./Components/PromptInput";
-import GenerateOutput from "./Components/GenerateOutput";
+import PromptInput from "./_components/PromptInput";
+import GenerateOutput from "./_components/GenerateOutput";
 
 type Message = {
   role: "user" | "assistant";
@@ -30,12 +30,14 @@ function Page() {
     );
   }
 
-  // Chat state — output flows in page, input sticks to bottom
   return (
     <section className="flex flex-col">
       <GenerateOutput messages={messages} isLoading={isLoading} />
 
-      <div className="fixed bottom-0 left-0 right-0 md:left-64 flex flex-col items-center justify-center pt-2 pb-4 mx-3 shadow-xl">
+      <div
+        className="fixed bottom-0 left-0 right-0 md:left-64 flex flex-col bg-muted items-center justify-center sm:pb-4 "
+        style={{ paddingBottom: "calc(0.75rem + env(safe-area-inset-bottom))" }}
+      >
         <PromptInput
           setMessages={setMessages}
           setIsLoading={setIsLoading}
