@@ -27,7 +27,7 @@ export async function POST(req: NextRequest) {
     }
 
     const completion = await groq.chat.completions.create({
-      model: "llama-3.1-8b-instant", // free and fast
+      model: "openai/gpt-oss-120b", 
       messages: [
         {
           role: "user",
@@ -43,9 +43,24 @@ export async function POST(req: NextRequest) {
 
   } catch (error) {
     console.error("Route error:", error)
+
+    const status =
+      typeof error === "object" && error !== null && "status" in error
+        ? Number((error as { status?: number }).status) || 502
+        : 502
+
+    const message =
+      status === 404
+        ? "The configured model is unavailable. Check GROQ model ID against console.groq.com."
+        : status === 401
+        ? "Groq API key is missing or invalid."
+        : status === 429
+        ? "Rate limit exceeded — try again shortly."
+        : "Something went wrong calling the model."
+
     return NextResponse.json(
-      { error: "Something went wrong", details: String(error) },
-      { status: 500 }
+      { error: message, details: String(error instanceof Error ? error.message : error) },
+      { status }
     )
   }
 }

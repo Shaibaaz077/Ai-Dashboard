@@ -3,6 +3,8 @@
 
 import React from "react";
 import { Message } from "./types";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 type Props = { messages: Message[]; isLoading: boolean };
 
@@ -10,7 +12,10 @@ function GenerateOutput({ messages, isLoading }: Props) {
   const hasMessages = messages.length > 0;
 
   return (
-    <section className="w-full flex items-center justify-center p-2 sm:p-4">
+    <section
+      className="w-full flex items-center justify-center p-2 sm:p-4 "
+      style={{ fontFamily: "'Inter', sans-serif" }}
+    >
       <div className="mt-6 sm:mt-8 md:mt-10 w-full max-w-2xl flex flex-col items-center justify-center gap-2 pb-32 sm:pb-36 pr-6">
         {!hasMessages && (
           <h1 className="text-xl xs:text-2xl md:text-4xl font-medium text-primary text-center px-2">
@@ -33,13 +38,20 @@ function GenerateOutput({ messages, isLoading }: Props) {
                     : "bg-muted text-foreground"
                 }`}
               >
-                <p className="whitespace-pre-wrap text-[14px] sm:text-[15px]">
-                  {msg.content}
-                </p>
+                {msg.role === "user" ? (
+                  <p className="whitespace-pre-wrap text-[14px] sm:text-[15px]">
+                    {msg.content}
+                  </p>
+                ) : (
+                  <div className="prose prose-sm sm:prose-base dark:prose-invert max-w-none text-[14px] sm:text-[15px] font-medium text-primary p-2">
+                    <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                      {msg.content}
+                    </ReactMarkdown>
+                  </div>
+                )}
               </div>
             </div>
           ))}
-
           {isLoading && (
             <div className="flex justify-start">
               <div className="max-w-[85%] sm:max-w-[80%] px-3 sm:px-4 py-2 rounded-2xl bg-muted text-foreground">
