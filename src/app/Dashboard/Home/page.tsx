@@ -1,6 +1,6 @@
-import ActivityChart from "./Components/ActivityChart";
-import RecentActivity from "./Components/RecentActivity";
-import StatCard from "./Components/StatCards";
+import ActivityChart from "./components/ActivityChart";
+import RecentActivity from "./components/RecentActivity";
+import StatCard from "./components/StatCards";
 
 export default function HomePage() {
   return (

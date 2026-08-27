@@ -15,7 +15,6 @@ function Page() {
   const hasMessages = messages.length > 0;
 
   if (!hasMessages) {
-    // Centered state — matches "Let's noodle" reference
     return (
       <section className="h-full flex flex-col items-center justify-center">
         <h1 className="text-2xl sm:text-3xl md:text-4xl font-medium text-primary mb-6">
