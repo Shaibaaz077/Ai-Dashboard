@@ -85,24 +85,20 @@ export default function DashboardHeader({
                   {
                     title: "AI request completed",
                     time: "2 min ago",
-                    icon: "🤖",
                   },
                   {
                     title: "New feature available",
                     time: "1 hour ago",
-                    icon: "✨",
                   },
                   {
                     title: "Usage limit at 80%",
                     time: "3 hours ago",
-                    icon: "⚠️",
                   },
                 ].map((notif, i) => (
                   <div
                     key={i}
                     className="flex items-start gap-3 p-4 hover:bg-gray-50 cursor-pointer"
                   >
-                    <span className="text-xl">{notif.icon}</span>
                     <div>
                       <p className="text-sm font-medium text-gray-800">
                         {notif.title}

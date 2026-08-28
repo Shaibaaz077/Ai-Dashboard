@@ -34,7 +34,7 @@ function Page() {
       <GenerateOutput messages={messages} isLoading={isLoading} />
 
       <div
-        className="fixed bottom-0 left-0 right-0 md:left-64 flex flex-col bg-muted items-center justify-center sm:pb-4 "
+        className="fixed bottom-0 left-0 right-0 md:left-64 flex flex-col bg-muted items-center justify-center sm:pb-4 mx-4"
         style={{ paddingBottom: "calc(0.75rem + env(safe-area-inset-bottom))" }}
       >
         <PromptInput
