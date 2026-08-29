@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { GeneratedItem } from "@/lib/types";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   BarChart,
@@ -13,35 +14,86 @@ import {
 } from "recharts";
 import { PieChart, Pie, Cell, Tooltip as PieTooltip } from "recharts";
 
-// --- Data ---
+// ✅ Accept history as prop
+type Props = {
+  history: GeneratedItem[];
+};
 
-const weeklyData = [
-  { day: "Mon", count: 4 },
-  { day: "Tue", count: 9 },
-  { day: "Wed", count: 6 },
-  { day: "Thu", count: 12 },
-  { day: "Fri", count: 8 },
-  { day: "Sat", count: 14 },
-  { day: "Sun", count: 16 },
-];
+// ✅ Real data from history — last 7 days
+const getLast7Days = (history: GeneratedItem[]) => {
+  const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  const result = Array.from({ length: 7 }, (_, i) => {
+    const date = new Date();
+    date.setDate(date.getDate() - (6 - i));
+    return {
+      day: days[date.getDay()],
+      date: date.toDateString(),
+      count: 0,
+    };
+  });
+  history.forEach((item) => {
+    const itemDate = new Date(item.createdAt).toDateString();
+    const found = result.find((r) => r.date === itemDate);
+    if (found) found.count++;
+  });
+  return result;
+};
 
-const monthlyData = [
-  { day: "Week 1", count: 28 },
-  { day: "Week 2", count: 43 },
-  { day: "Week 3", count: 35 },
-  { day: "Week 4", count: 52 },
-];
+// ✅ Real data from history — last 4 weeks
+const getLast4Weeks = (history: GeneratedItem[]) => {
+  const result = [
+    { day: "Week 1", count: 0 },
+    { day: "Week 2", count: 0 },
+    { day: "Week 3", count: 0 },
+    { day: "Week 4", count: 0 },
+  ];
+  history.forEach((item) => {
+    const daysAgo = Math.floor(
+      (Date.now() - new Date(item.createdAt).getTime()) / (1000 * 60 * 60 * 24),
+    );
+    if (daysAgo < 7) result[3].count++;
+    else if (daysAgo < 14) result[2].count++;
+    else if (daysAgo < 21) result[1].count++;
+    else if (daysAgo < 28) result[0].count++;
+  });
+  return result;
+};
 
-const contentTypes = [
-  { name: "Blog posts", value: 38, color: "#378ADD" },
-  { name: "Emails", value: 28, color: "#1D9E75" },
-  { name: "Captions", value: 20, color: "#EF9F27" },
-  { name: "Other", value: 14, color: "#7F77DD" },
-];
+// ✅ Real content type breakdown from history
+const getContentTypes = (history: GeneratedItem[]) => {
+  const colors: Record<string, string> = {
+    blog_post: "#378ADD",
+    email: "#1D9E75",
+    social_caption: "#EF9F27",
+    code_snippet: "#7F77DD",
+    bio: "#E24B4A",
+    product_description: "#888780",
+  };
+  const labels: Record<string, string> = {
+    blog_post: "Blog posts",
+    email: "Emails",
+    social_caption: "Captions",
+    code_snippet: "Code",
+    bio: "Bio",
+    product_description: "Product",
+  };
+
+  const counts: Record<string, number> = {};
+  history.forEach((item) => {
+    counts[item.contentType] = (counts[item.contentType] || 0) + 1;
+  });
+
+  const total = history.length || 1;
+
+  return Object.entries(counts).map(([key, count]) => ({
+    name: labels[key] || key,
+    value: Math.round((count / total) * 100),
+    color: colors[key] || "#888780",
+  }));
+};
 
 // --- Custom Bar Tooltip ---
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const CustomBarTooltip = ({ active, payload, label }: any) => {
   if (active && payload && payload.length) {
     return (
@@ -67,7 +119,6 @@ const CustomBarTooltip = ({ active, payload, label }: any) => {
 
 // --- Custom Pie Tooltip ---
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const CustomPieTooltip = ({ active, payload }: any) => {
   if (active && payload && payload.length) {
     return (
@@ -93,11 +144,15 @@ const CustomPieTooltip = ({ active, payload }: any) => {
   return null;
 };
 
-// --- Custom legend for donut chart ---
+// --- Custom Legend ---
 
-const CustomLegend = () => (
+const CustomLegend = ({
+  data,
+}: {
+  data: { name: string; value: number; color: string }[];
+}) => (
   <div className="flex flex-col gap-2 my-4">
-    {contentTypes.map((item) => (
+    {data.map((item) => (
       <div
         key={item.name}
         className="flex items-center justify-between text-xs"
@@ -117,10 +172,13 @@ const CustomLegend = () => (
 
 // --- Main component ---
 
-export default function ActivityChart() {
+export default function ActivityChart({ history }: Props) {
   const [range, setRange] = useState<"7d" | "30d">("7d");
 
-  const chartData = range === "7d" ? weeklyData : monthlyData;
+  // ✅ Real data computed from history
+  const chartData =
+    range === "7d" ? getLast7Days(history) : getLast4Weeks(history);
+  const contentTypes = getContentTypes(history);
 
   return (
     <div className="h-full grid grid-cols-1 lg:grid-cols-3 gap-4 mt-6 cursor-default">
@@ -136,8 +194,6 @@ export default function ActivityChart() {
                 Generations per day
               </p>
             </div>
-
-            {/* Toggle */}
             <div className="flex items-center gap-1 border rounded-lg p-1">
               <button
                 onClick={() => setRange("7d")}
@@ -164,45 +220,54 @@ export default function ActivityChart() {
         </CardHeader>
 
         <CardContent>
-          <ResponsiveContainer
-            width="100%"
-            height={200}
-            style={{ marginTop: "1rem" }}
-          >
-            <BarChart
-              data={chartData}
-              barSize={range === "7d" ? 32 : 48}
-              margin={{ top: 4, right: 4, left: -24, bottom: 0 }}
+          {/* ✅ Empty state when no history */}
+          {history.length === 0 ? (
+            <div className="h-[200px] flex items-center justify-center">
+              <p className="text-sm text-muted-foreground">
+                No data yet. Generate something first!
+              </p>
+            </div>
+          ) : (
+            <ResponsiveContainer
+              width="100%"
+              height={200}
+              style={{ marginTop: "1rem" }}
             >
-              <CartesianGrid
-                vertical={false}
-                strokeDasharray="3 3"
-                stroke="hsl(var(--border))"
-              />
-              <XAxis
-                dataKey="day"
-                tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }}
-                axisLine={false}
-                tickLine={false}
-              />
-              <YAxis
-                tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }}
-                axisLine={false}
-                tickLine={false}
-                allowDecimals={false}
-              />
-              <Tooltip
-                cursor={false}
-                content={<CustomBarTooltip />}
-                wrapperStyle={{ zIndex: 50 }}
-              />
-              <Bar
-                dataKey="count"
-                fill="hsl(var(--primary))"
-                radius={[4, 4, 0, 0]}
-              />
-            </BarChart>
-          </ResponsiveContainer>
+              <BarChart
+                data={chartData}
+                barSize={range === "7d" ? 32 : 48}
+                margin={{ top: 4, right: 4, left: -24, bottom: 0 }}
+              >
+                <CartesianGrid
+                  vertical={false}
+                  strokeDasharray="3 3"
+                  stroke="hsl(var(--border))"
+                />
+                <XAxis
+                  dataKey="day"
+                  tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }}
+                  axisLine={false}
+                  tickLine={false}
+                />
+                <YAxis
+                  tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }}
+                  axisLine={false}
+                  tickLine={false}
+                  allowDecimals={false}
+                />
+                <Tooltip
+                  cursor={false}
+                  content={<CustomBarTooltip />}
+                  wrapperStyle={{ zIndex: 50 }}
+                />
+                <Bar
+                  dataKey="count"
+                  fill="hsl(var(--primary))"
+                  radius={[4, 4, 0, 0]}
+                />
+              </BarChart>
+            </ResponsiveContainer>
+          )}
         </CardContent>
       </Card>
 
@@ -216,29 +281,40 @@ export default function ActivityChart() {
         </CardHeader>
 
         <CardContent>
-          <ResponsiveContainer width="100%" height={140}>
-            <PieChart>
-              <Pie
-                data={contentTypes}
-                cx="50%"
-                cy="50%"
-                innerRadius={42}
-                outerRadius={62}
-                paddingAngle={3}
-                dataKey="value"
-                stroke="none"
-              >
-                {contentTypes.map((entry, index) => (
-                  <Cell key={index} fill={entry.color} />
-                ))}
-              </Pie>
-              <PieTooltip
-                content={<CustomPieTooltip />}
-                wrapperStyle={{ zIndex: 50 }}
-              />
-            </PieChart>
-          </ResponsiveContainer>
-          <CustomLegend />
+          {/* ✅ Empty state when no history */}
+          {contentTypes.length === 0 ? (
+            <div className="h-[140px] flex items-center justify-center">
+              <p className="text-sm text-muted-foreground text-center">
+                No data yet!
+              </p>
+            </div>
+          ) : (
+            <>
+              <ResponsiveContainer width="100%" height={140}>
+                <PieChart>
+                  <Pie
+                    data={contentTypes}
+                    cx="50%"
+                    cy="50%"
+                    innerRadius={42}
+                    outerRadius={62}
+                    paddingAngle={3}
+                    dataKey="value"
+                    stroke="none"
+                  >
+                    {contentTypes.map((entry, index) => (
+                      <Cell key={index} fill={entry.color} />
+                    ))}
+                  </Pie>
+                  <PieTooltip
+                    content={<CustomPieTooltip />}
+                    wrapperStyle={{ zIndex: 50 }}
+                  />
+                </PieChart>
+              </ResponsiveContainer>
+              <CustomLegend data={contentTypes} />
+            </>
+          )}
         </CardContent>
       </Card>
     </div>

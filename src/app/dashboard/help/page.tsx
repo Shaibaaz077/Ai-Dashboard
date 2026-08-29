@@ -74,10 +74,9 @@ export default function Page() {
   };
 
   return (
-    <div className="p-6 max-w-3xl mx-auto">
+    <div className="max-w-3xl mx-auto">
       {/* Header */}
       <div className="mb-6">
-        <h1 className="text-2xl font-medium text-foreground">Help & Support</h1>
         <p className="text-sm text-muted-foreground mt-1">
           Find answers or get in touch with us.
         </p>

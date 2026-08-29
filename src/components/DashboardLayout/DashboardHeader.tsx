@@ -4,7 +4,21 @@ import React, { useState, useCallback, useEffect, useRef } from "react";
 import { useUser, SignOutButton } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { Bell, TextAlignStart, Settings, LogOut, User } from "lucide-react";
+
+type Props = {
+  onToggleSidebar: () => void;
+};
+
+const pageTitles: Record<string, string> = {
+  "/dashboard/home": "Dashboard",
+  "/dashboard/generate": "Generate",
+  "/dashboard/history": "History",
+  "/dashboard/saved": "Saved",
+  "/dashboard/settings": "Settings",
+  "/dashboard/help": "Help",
+};
 
 export default function DashboardHeader({
   onToggleSidebar,
@@ -19,10 +33,10 @@ export default function DashboardHeader({
   // Refs to detect outside clicks properly
   const dropdownRef = useRef<HTMLDivElement>(null);
   const notifRef = useRef<HTMLDivElement>(null);
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
-      // Only close if clicked OUTSIDE the dropdown
       if (
         dropdownRef.current &&
         !dropdownRef.current.contains(e.target as Node)
@@ -38,24 +52,24 @@ export default function DashboardHeader({
   }, []);
 
   const handleSettings = useCallback(() => {
-    router.push("/settings");
+    router.push("/dashboard/settings");
     setDropdownOpen(false);
   }, [router]);
 
   const handleProfile = useCallback(() => {
-    router.push("/profile");
+    router.push("/dashboard/settings");
     setDropdownOpen(false);
   }, [router]);
 
   return (
-    <header className="h-20 sm:h-24 flex items-center justify-between px-6 py-4 bg-white border-b border-border/40 sticky top-0 z-50">
+    <header className="h-20 flex items-center justify-between px-6 py-4 bg-white border-b border-border/40 sticky top-0 z-50">
       {/* Page Title */}
       <h1 className="flex items-center gap-4 text-lg font-semibold text-gray-800 cursor-default">
         <TextAlignStart
           className="cursor-pointer md:hidden"
           onClick={onToggleSidebar}
         />
-        Dashboard
+        {pageTitles[pathname] || "Dashboard"}
       </h1>
 
       {/* Right Side */}
@@ -71,52 +85,36 @@ export default function DashboardHeader({
             className="relative p-2 rounded-full hover:bg-gray-100 transition-colors"
           >
             <Bell className="w-5 h-5 text-gray-600" />
-            <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full" />
           </button>
 
           {/* Notification Dropdown */}
           {notifOpen && (
-            <div className="absolute right-0 mt-2 w-80 bg-white rounded-xl shadow-lg border border-border/40 z-50">
+            <div className="absolute right-0 mt-2 w-64 bg-white rounded-xl shadow-lg border border-border/40 z-50">
               <div className="p-4 border-b border-border/40">
                 <h3 className="font-semibold text-gray-800">Notifications</h3>
               </div>
               <div className="divide-y divide-border/40">
-                {[
-                  {
-                    title: "AI request completed",
-                    time: "2 min ago",
-                  },
-                  {
-                    title: "New feature available",
-                    time: "1 hour ago",
-                  },
-                  {
-                    title: "Usage limit at 80%",
-                    time: "3 hours ago",
-                  },
-                ].map((notif, i) => (
+                {[].map((notif, i) => (
                   <div
                     key={i}
                     className="flex items-start gap-3 p-4 hover:bg-gray-50 cursor-pointer"
                   >
                     <div>
                       <p className="text-sm font-medium text-gray-800">
-                        {notif.title}
+                        {notif}
                       </p>
-                      <p className="text-xs text-gray-400 mt-0.5">
-                        {notif.time}
-                      </p>
+                      <p className="text-xs text-gray-400 mt-0.5">{notif}</p>
                     </div>
                   </div>
                 ))}
               </div>
               <div className="p-3 border-t border-gray-100 text-center">
-                <button
+                <p
                   suppressHydrationWarning
-                  className="text-sm text-purple-600 hover:underline"
+                  className="text-sm text-muted-foreground hover:underline"
                 >
-                  View all notifications
-                </button>
+                  No Notifications
+                </p>
               </div>
             </div>
           )}
