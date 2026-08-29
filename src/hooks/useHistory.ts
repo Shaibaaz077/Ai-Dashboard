@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, useCallback } from "react"
+import { useState, useCallback } from "react"
 import { GeneratedItem } from "@/lib/types"
 
 const STORAGE_KEY = "falconai_history"

@@ -7,10 +7,6 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Bell, TextAlignStart, Settings, LogOut, User } from "lucide-react";
 
-type Props = {
-  onToggleSidebar: () => void;
-};
-
 const pageTitles: Record<string, string> = {
   "/dashboard/home": "Dashboard",
   "/dashboard/generate": "Generate",

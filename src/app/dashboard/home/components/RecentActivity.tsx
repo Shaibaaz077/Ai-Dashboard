@@ -188,7 +188,7 @@ export default function RecentActivity({ history, stats }: Props) {
             );
 
             return (
-              <div key={item.label} className="flex flex-col gap-1.5">
+              <div key={item.label} className="flex flex-col gap-1.5 pb-2">
                 {/* Label + values */}
                 <div className="flex items-center justify-between">
                   <span className="text-sm text-foreground">{item.label}</span>
@@ -209,7 +209,7 @@ export default function RecentActivity({ history, stats }: Props) {
 
                 {/* Warning when near limit */}
                 {percentage >= 80 && (
-                  <p className="text-xs text-red-500">⚠️ Almost at limit!</p>
+                  <p className="text-xs text-red-500">Almost at limit!</p>
                 )}
               </div>
             );

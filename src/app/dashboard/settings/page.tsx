@@ -13,7 +13,6 @@ import {
 } from "@/components/ui/select";
 import {
   User,
-  Palette,
   Sliders,
   Trash2,
   Bell,
@@ -112,7 +111,7 @@ export default function SettingsPage() {
   const [tone, setTone] = useState("professional");
   const [length, setLength] = useState("medium");
   const [autoSave, setAutoSave] = useState(true);
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode] = useState(false);
 
   // Notifications
   const [emailNotif, setEmailNotif] = useState(false);

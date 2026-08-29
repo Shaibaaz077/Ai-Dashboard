@@ -14,12 +14,10 @@ import {
 } from "recharts";
 import { PieChart, Pie, Cell, Tooltip as PieTooltip } from "recharts";
 
-// ✅ Accept history as prop
 type Props = {
   history: GeneratedItem[];
 };
 
-// ✅ Real data from history — last 7 days
 const getLast7Days = (history: GeneratedItem[]) => {
   const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   const result = Array.from({ length: 7 }, (_, i) => {
@@ -39,7 +37,6 @@ const getLast7Days = (history: GeneratedItem[]) => {
   return result;
 };
 
-// ✅ Real data from history — last 4 weeks
 const getLast4Weeks = (history: GeneratedItem[]) => {
   const result = [
     { day: "Week 1", count: 0 },
@@ -59,7 +56,6 @@ const getLast4Weeks = (history: GeneratedItem[]) => {
   return result;
 };
 
-// ✅ Real content type breakdown from history
 const getContentTypes = (history: GeneratedItem[]) => {
   const colors: Record<string, string> = {
     blog_post: "#378ADD",
@@ -94,7 +90,13 @@ const getContentTypes = (history: GeneratedItem[]) => {
 
 // --- Custom Bar Tooltip ---
 
-const CustomBarTooltip = ({ active, payload, label }: any) => {
+type TooltipProps = {
+  active?: boolean;
+  payload?: { value: number; name: string }[];
+  label?: string;
+};
+
+const CustomBarTooltip = ({ active, payload, label }: TooltipProps) => {
   if (active && payload && payload.length) {
     return (
       <div
@@ -117,9 +119,7 @@ const CustomBarTooltip = ({ active, payload, label }: any) => {
   return null;
 };
 
-// --- Custom Pie Tooltip ---
-
-const CustomPieTooltip = ({ active, payload }: any) => {
+const CustomPieTooltip = ({ active, payload }: TooltipProps) => {
   if (active && payload && payload.length) {
     return (
       <div
@@ -143,7 +143,6 @@ const CustomPieTooltip = ({ active, payload }: any) => {
   }
   return null;
 };
-
 // --- Custom Legend ---
 
 const CustomLegend = ({
@@ -175,7 +174,6 @@ const CustomLegend = ({
 export default function ActivityChart({ history }: Props) {
   const [range, setRange] = useState<"7d" | "30d">("7d");
 
-  // ✅ Real data computed from history
   const chartData =
     range === "7d" ? getLast7Days(history) : getLast4Weeks(history);
   const contentTypes = getContentTypes(history);
