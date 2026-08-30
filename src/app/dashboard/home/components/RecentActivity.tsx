@@ -117,7 +117,7 @@ export default function RecentActivity({ history, stats }: Props) {
   const usageData = getUsageData(stats);
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-4">
       {/* Recent activity */}
       <Card>
         <CardHeader className="pb-2 pt-4 cursor-default">
